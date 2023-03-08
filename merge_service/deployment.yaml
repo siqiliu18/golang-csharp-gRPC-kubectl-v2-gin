@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: thirdgrpcservice-project2
+  name: thirdgrpcservice-project2
+spec:
+  selector:
+    matchLabels:
+      app: thirdgrpcservice-project2
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: thirdgrpcservice-project2
+    spec:
+      containers:
+        - name: thirdgrpcservice-project2
+          image: thirdgrpcservice-project2-multi
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 5290
+              name: merge-port
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: thirdgrpcservice-project2
+  labels:
+    app: thirdgrpcservice-project2
+spec:
+  selector:
+    app: thirdgrpcservice-project2
+  type: NodePort
+  ports:
+    - port: 50105
+      targetPort: merge-port
+      nodePort: 30011

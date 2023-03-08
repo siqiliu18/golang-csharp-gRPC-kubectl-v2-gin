@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gfg-client-deployment
+  labels:
+    app: gfg-client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gfg-client
+  template:
+    metadata:
+      labels:
+        app: gfg-client
+    spec:
+      containers:
+      - name: gfg-client-pod
+        image: pptp3-goclient-image
+        imagePullPolicy: Never
+        ports:
+          - containerPort: 50098
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name:  goclient-pptclient
+spec:
+  selector:
+    app:  gfg-client
+  type:  NodePort
+  ports:
+  - port:  7002
+    targetPort:  50098
+    nodePort: 30008

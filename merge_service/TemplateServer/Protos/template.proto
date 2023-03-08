@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option csharp_namespace = "TemplateServer";
+
+package templates;
+
+// Template Construction service
+service TemplateMaker {
+  rpc RetrieveTemplate (TemplateRequest) returns (TemplateResponse);
+}
+
+// The request message
+message TemplateRequest {
+  string templatename = 1;
+  string templatetype = 2;
+  string cbedna = 3;
+}
+
+// The response message
+message TemplateResponse {
+  string documenturi = 1;
+}

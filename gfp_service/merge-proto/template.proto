@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package templates;
+
+// protoc -I . merge-proto/template.proto --go_out=plugins=grpc:.
+
+// Template Construction service
+service TemplateMaker {
+  rpc RetrieveTemplate (TemplateRequest) returns (TemplateResponse);
+}
+
+// The request message
+message TemplateRequest {
+  string templatename = 1;
+  string templatetype = 2;
+  string cbedna = 3;
+}
+
+// The response message
+message TemplateResponse {
+  string documenturi = 1;
+}
